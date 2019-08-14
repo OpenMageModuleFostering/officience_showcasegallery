@@ -1,0 +1,14 @@
+<div class="box-collateral box-albums">
+    <h2><?php echo $this->__('Showcase Gallery') ?></h2>
+    <?php if($this->getAlbums()):?>
+        <ul class="album-list">
+            <?php foreach ($this->getAlbums() as $key=>$album):?>
+            <li>
+				<a href="<?php echo Mage::getUrl('showcasegallery/index/index',array('id'=>$key))?>">
+				<img src="<?php echo $album['image']?>" alt="<?php echo $album['title'];?>" /> </a> 
+				<a class="album-title" href="<?php echo Mage::getUrl('showcasegallery/index/index',array('id'=>$key))?>" title="<?php echo $album['title']?>"><?php echo $album['title']?></a> 
+            </li>
+            <?php endforeach;?>
+        </ul>
+    <?php endif;?>
+</div>

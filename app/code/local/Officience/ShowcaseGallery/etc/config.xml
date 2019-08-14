@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Officience_ShowcaseGallery>
+            <version>0.1.0</version>    <!-- Version Modules Magento Gallery -->
+        </Officience_ShowcaseGallery>
+    </modules>
+    <frontend>
+        <routers>
+            <showcasegallery>
+                <use>standard</use>
+                <args>
+                    <module>Officience_ShowcaseGallery</module>
+                    <frontName>showcasegallery</frontName>
+                </args>
+            </showcasegallery>
+        </routers>
+        <layout>  <!-- Layout Added -->
+            <updates>
+                <showcasegallery>
+                    <file>showcasegallery.xml</file> <!-- This is name of the layout file for this module -->
+                </showcasegallery>
+            </updates>
+        </layout>
+    </frontend>
+    <global>
+        <blocks>
+            <showcasegallery>
+                <class>Officience_ShowcaseGallery_Block</class>  <!-- Path of the
+ Block Folder, where all php files are located related to view -->
+            </showcasegallery>
+        </blocks>
+        <helpers>
+            <showcasegallery>
+                <class>Officience_ShowcaseGallery_Helper</class> 
+                <!-- Path of Helper Files -->
+            </showcasegallery>
+        </helpers>
+        <models>
+            <showcasegallery>
+                <class>Officience_ShowcaseGallery_Model</class> <!-- Location of all model class files -->
+                <resourceModel>showcasegallery_mysql4</resourceModel> <!-- Location of resource model -->
+            </showcasegallery>
+            <showcasegallery_mysql4>
+                <class>Officience_ShowcaseGallery_Model_Mysql4</class>
+                <entities>
+                    <album>
+                        <table>offy_album</table>  <!-- Actual table name in sql  -->
+                    </album>
+                    <image>
+                        <table>offy_image</table>  <!-- Actual table name in sql  -->
+                    </image>
+                    <product>
+                        <table>offy_album_product</table>  <!-- Actual table name in sql  -->
+                    </product>
+                </entities>
+            </showcasegallery_mysql4>
+        </models>
+        <resources>  <!-- These are resource setting giving access to module, read/write permission on database -->
+            <showcasegallery_setup>
+                <setup>
+                    <module>Officience_ShowcaseGallery</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </showcasegallery_setup>
+            <showcasegallery_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </showcasegallery_write>
+            <showcasegallery_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </showcasegallery_read>
+        </resources>
+    </global>
+</config>

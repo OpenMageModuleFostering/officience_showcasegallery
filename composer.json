@@ -1,0 +1,16 @@
+{
+    "name": "OpenMageModuleFostering/Officience_ShowcaseGallery",
+    "type": "magento-module",
+    "license": "OSL-v3.0",
+    "homepage": "",
+    "description": "Showcase extension for Magento",
+    "authors": [
+    {
+        "name": "Officience",
+        "email": "itdev.officience@gmail.com"
+    }
+],
+    "suggest": {
+        "magento-hackathon/magento-composer-installer": "*"
+    }
+}

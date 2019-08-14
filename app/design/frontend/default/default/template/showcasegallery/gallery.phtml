@@ -1,0 +1,128 @@
+<?php 
+    $albums = $this->getAlbumsByCustomerId();
+    $name = $this->getCustomerName(); 
+?>
+<h1><?php echo $name.' '.$this->__('ShowCase Gallery') ?></h1>
+
+<?php if(!$albums):?>
+    <?php echo $this->__('Gallery is not exist'); ?>
+	<?php if(Mage::getSingleton('customer/session')->isLoggedIn()):?>
+		<p><a href="<?php echo Mage::getUrl('showcasegallery/album/add');?>"><?php echo $this->__('Add New Album')?></a></p>
+	<?php else:?>
+		<div><?php echo $this->__('You need to login first before you can add an album.'); ?></div>		
+<?php endif;?>
+<?php else: ?>
+	<?php if(Mage::getSingleton('customer/session')->isLoggedIn()):?>
+		<p><a href="<?php echo Mage::getUrl('showcasegallery/album/add');?>"><?php echo $this->__('Add New Album')?></a></p>
+	<?php else:?>
+		<div><?php echo $this->__('You need to login first before you can add an album.'); ?></div>
+	<?php endif;?>
+    <ul id="album_list" class="album-list">
+        <?php foreach ($albums as $album):?>
+            <li id="<?php echo $album->getId()?>" class="album_thumb">
+                <img src="<?php echo $this->getAlbumThumb($album->getId())?>" alt="<?php echo $album->getAlbumTitle()?>" /> 
+                <p><?php echo $album->getAlbumTitle()?></p>
+                <?php if($this->IsOwner()):?>
+                <a class='del' title="delete" onclick="deleteAlbum(<?php echo $album->getId()?>)"></a>
+                <?php endif;?>
+            </li>
+        <?php endforeach;?>
+            
+    </ul>
+    <div id="album_content" >
+            <?php if($album = $this->getAlbumContent($this->getDefaultAlbumId())):?>
+                <h3 id="album_name" class="title_block"><?php echo $album['album_title'];?></h3>
+                <div id="album_main"><img src="<?php echo $this->getAlbumDefaultImage($this->getDefaultAlbumId());?>" /></div>
+                <div id="album_des"><?php echo $album['album_description'];?></div>
+            <?php else:?>
+                <h3 id="album_name" class="title_block"></h3>
+                <div id="album_main"><img src="" /></div>
+                <div id="album_des"></div>
+            <?php endif;?>
+            <div id="image_list">
+                <?php if($imageList = $this->getAlbumImagesList($this->getDefaultAlbumId())):?>
+                    <ul id="ListImages" class="thumb_list">
+                        <?php foreach($imageList as $image):?>
+                            <li id="image_<?php echo $image['id']?>"> <img src="<?php echo $image['thumb']?>"> </li>
+                        <?php endforeach;?>
+                    </ul>
+                <?php else: ?>
+                    <ul id="ListImages" class="thumb_list">
+                            <li></li>
+                    </ul>
+                <?php endif;?>
+            </div>
+            <div class="productList" >
+                <?php if( $productsUsed = $this->getAlbumProductList($this->getDefaultAlbumId())):?>
+                    <ul id="productList">
+                    <?php foreach($productsUsed as $product):?>
+                        <li>
+                            <div>
+                                <a href="<?php echo $product['url']?>"> 
+                                    <img src="<?php echo $product['image']?>" alt="<?php echo $product['name']?>" /> 
+                                </a> 
+                                <a href="<?php echo $product['url']?>" title="<?php echo $product['name']?>"><?php echo $product['name']?></a> 
+                            </div>
+                        <li>
+                    <?php endforeach;?>
+                    </ul>
+                <?php else:?>
+                        <li>
+                            <div>
+                            </div>
+                        <li>
+                <?php endif;?>
+            </div>
+    </div>
+<?php endif;?>
+<script type="text/javascript">
+            $j = jQuery.noConflict(); 
+            
+            $j('.album_thumb').click(function(){
+                    var id_album =  $j(this).attr('id');
+                    $j.ajax({
+                            url: '<?php echo Mage::getUrl('showcasegallery/album/load');?>',
+                            type: "POST",
+                            data: {
+                                    id: id_album
+                            },
+                            dataType : 'json',
+                            success: function(responseJSON){
+                                loadAlbum(responseJSON.album,responseJSON.imageList,responseJSON.productList);
+                            }
+                    });
+            });
+            
+            function loadAlbum(album,imageList,productList){
+                $j("#album_name").html(album.album_title);
+                $j("#album_des").html(album.album_description);
+                $j("#album_main img").attr("src",album.album_main_image);
+                $j("#ListImages li").remove();
+                
+                $j.each(imageList, function(id,item){
+                    $j("#ListImages").append("<li id='image_"+item.id+"'><img src=\""+ item.thumb +"\"></li>");
+                });
+                
+                $j("#productList li").remove();
+                $j.each(productList, function(id, item){
+                    $j("#productList").append("<li><div><a href='"+ item.url +"'><img src='"+ item.image +"' alt='"+item.name+"'/></a><a href='"+item.url+"' title='"+item.name+"'>"+item.name+"</a></div></li>");
+                });
+                
+            } 
+            $j("#ListImages li").die().live('click', function(e)
+            {
+                    e.preventDefault();
+                    image_id = $j(this).attr('id').substring(6);
+                    thumbpath = $j(this).find('img').attr('src');
+                    mainpath = thumbpath.replace('_thumb','');
+                    $j("#album_main img").attr("src",mainpath);
+            });
+            
+            function deleteAlbum(id_album){
+                    if (confirm("<?php echo $this->__('Do you realy want to delete this album ?')?>")){
+                        window.location = "<?php echo Mage::getUrl('showcasegallery/album/delete');?>?id=" + id_album;
+                    }
+                }
+</script>
+
+

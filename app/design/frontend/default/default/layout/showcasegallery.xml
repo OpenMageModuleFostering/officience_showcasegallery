@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Modules Magento Gallery - Zoom NGUYEN - University Bordeaux I - France
+Email : frtlupsvn@gmail.com
+-->
+<layout version="1.0.0">
+    <default>
+        <reference name="top.links">
+            <action method="addLink" translate="label title" module="showcasegallery">
+                <label>Showcase Gallery</label>
+                <url>showcasegallery/index</url>
+                <title>Showcase Gallery</title>
+                <position>10</position>
+            </action>
+        </reference>
+    </default>
+    
+    <catalog_product_view translate="label">
+        <label>Catalog Product View</label>
+         <!-- Mage_Tag -->
+         <reference name="head">   
+            <action method="addCss"><stylesheet>showcasegallery/css/showcasegallery.css</stylesheet></action>
+        </reference>
+        <reference name="product.info.additional">
+            <block type="showcasegallery/productalbums" name="productalbums" template="showcasegallery/productalbums.phtml" />
+        </reference>
+    </catalog_product_view>
+    
+    <showcasegallery_index_index>
+        <reference name="head">   
+            <action method="addCss"><stylesheet>showcasegallery/css/showcasegallery.css</stylesheet></action>
+            <action method="addJs"><script>jquery/showcasegallery/jQuery.js</script></action>
+        </reference>
+        <label>My Gallery</label>
+        <reference name="content">
+            <block type="showcasegallery/gallery" name="gallery" template="showcasegallery/gallery.phtml" />
+        </reference>
+    </showcasegallery_index_index>
+    
+    <showcasegallery_album_add>
+        <reference name="head">   
+            <action method="addCss"><stylesheet>showcasegallery/css/showcasegallery.css</stylesheet></action>
+            <action method="addJs"><script>jquery/showcasegallery/jQuery.js</script></action>
+        </reference>
+        <label>Showcase Gallery</label>
+        <reference name="content">
+            <block type="showcasegallery/album" name="album" template="showcasegallery/album.phtml" />
+        </reference>
+    </showcasegallery_album_add>
+</layout>

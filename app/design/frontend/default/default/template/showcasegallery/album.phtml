@@ -1,0 +1,82 @@
+<?php
+/*
+ * upload form template Medma_Avatar
+ */
+?>
+
+<script type="text/javascript">
+    /*
+     * to preview image before actual upload  
+     */
+        
+    $j = jQuery.noConflict(); 
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $j(input).parent().find("#preview").attr('src', e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    };
+    function file_get_ext(filename)
+    {
+        return typeof filename != "undefined" ? filename.substring(filename.lastIndexOf(".")+1, filename.length).toLowerCase() : false;
+    };
+    $j(document).ready(function(){
+        var i = 1
+        $j('#addmore').click(function(){
+                line = $j(".form-list .image").clone();
+                $j(line).find("#preview").attr('src', '');
+                $j(line).find(":input").attr('name', 'uploaded_image_'+i);
+                $j('.form-list').append('<li class="image">'+line.html()+'<span class="delete" title="delete"></span></li>');  
+                i++;
+        });
+        
+        $j(document).on("click", ".delete", function () {
+            $j(this).parent().remove();
+        });
+    });
+    
+</script>
+<form action="<?php echo Mage::getUrl('showcasegallery/album/save');?>" method="post" enctype="multipart/form-data"  id="theForm">
+    <div class="fieldset">  
+        <h2 class="legend"><?php echo $this->__('Album Management')?></h2>
+        <ul class="form-list">
+            <li>
+                <label for="title"><?php echo $this->__('Album Title: ');?></label>
+                <input class="required-entry" type="text" name="album_title" value="">
+            </li>
+            <li>
+                <label for="description"><?php echo $this->__('Album Description: ');?></label>
+                <input class="required-entry" type="text" name="album_description" value="">
+            </li>
+            <li>
+                <label for="description"><?php echo $this->__('Album Used Product: ');?></label>
+                <?php if($products = $this->getProducts()):?>
+                    <select name="products[]" <?php if(count($products)>10) echo 'size="10"';?> multiple class="validate-select required-entry">
+                        <?php foreach ($products as $k=>$value):?>
+                            <option value="<?php echo $k;?>"><?php echo $value;?></option>
+                        <?php endforeach;?>
+                    </select>
+                <?php else:?>
+                <?php endif;?>
+            </li>
+            
+            <li class="image"> 
+                <label for="file"><?php echo $this->__('Image : ');?></label>
+                <input type="file" name="uploaded_image_0" id="file" onChange="readURL(this);" class="required-entry">
+                <img id="preview" src="" width="75px" height="75px" />
+            </li>
+        </ul>
+		<div>
+			<a id="addmore" title="More Image" style="float:left; cursor:pointer;"><?php echo $this->__('More Image');?></a>
+			<button type ="submit" name="save" title="save" class="button"><span><?php echo $this->__('Save') ?></span></button>
+		</div>
+    </div>
+</form>
+<script type="text/javascript">
+//<![CDATA[
+    var theForm = new VarienForm('theForm', true);
+//]]>   
+</script>
