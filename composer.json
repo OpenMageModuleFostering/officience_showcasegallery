@@ -3,11 +3,11 @@
     "type": "magento-module",
     "license": "OSL-v3.0",
     "homepage": "",
-    "description": "Showcase extension for Magento",
+    "description": "This extension that allows customer can create the albums in order to promotion products",
     "authors": [
     {
-        "name": "Officience",
-        "email": "itdev.officience@gmail.com"
+        "name": "ToThanhTrung",
+        "email": "thanhtrung.to@officience.com"
     }
 ],
     "suggest": {

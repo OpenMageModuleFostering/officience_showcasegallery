@@ -1,10 +1,8 @@
-.avatar-block{
-    float: right;
-    width:auto;
-    height:auto;
-    border:1px solid gray;
-    margin-left: 8px;
-}
+/**
+ * @category   	Officience
+ * @package		Officience_ShowcaseGallery
+ * @author 		Officience <itdev.officience@gmail.com>
+ */ 
 
 /* Add an album */
 

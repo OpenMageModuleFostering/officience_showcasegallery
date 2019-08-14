@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-Modules Magento Gallery - Zoom NGUYEN - University Bordeaux I - France
-Email : frtlupsvn@gmail.com
--->
+<!-- 
+/**
+ * @category	Officience
+ * @package		Officience_ShowcaseGallery
+ * @author 		Officience <itdev.officience@gmail.com>
+ */  
+ -->
 <layout version="1.0.0">
     <default>
         <reference name="top.links">

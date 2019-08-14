@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
 <!--
-Modules Magento Gallery - Zoom NGUYEN - University Bordeaux I - France
-Email : frtlupsvn@gmail.com
+Modules Magento ShowCaseGallery - Officience - Vietnam - France
+Email : itdev.officience@gmail.com
 -->
 <config>
     <modules>
         <Officience_ShowcaseGallery><!-- Name of Modules -->
             <active>true</active><!-- active module -->
-            <codePool>local</codePool><!-- Localtion of Modules -->
+            <codePool>community</codePool><!-- Localtion of Modules -->
         </Officience_ShowcaseGallery>
     </modules>
 </config>
