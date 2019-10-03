@@ -1,16 +1,19 @@
 {
-    "name": "OpenMageModuleFostering/Officience_ShowcaseGallery",
+    "name": "OpenMageModuleFostering\/Officience_ShowcaseGallery",
     "type": "magento-module",
     "license": "OSL-v3.0",
     "homepage": "",
     "description": "This extension that allows customer can create the albums in order to promotion products",
     "authors": [
-    {
-        "name": "ToThanhTrung",
-        "email": "thanhtrung.to@officience.com"
-    }
-],
+        {
+            "name": "ToThanhTrung",
+            "email": "thanhtrung.to@officience.com"
+        }
+    ],
     "suggest": {
-        "magento-hackathon/magento-composer-installer": "*"
-    }
+        "magento-hackathon\/magento-composer-installer": "*"
+    },
+    "keywords": [
+        "openmage-module"
+    ]
 }
